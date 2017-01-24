@@ -77,10 +77,10 @@ public class BaseLog {
         try {
             if (msg.startsWith("{")) {
                 JSONObject jsonObject = new JSONObject(msg);
-                message = jsonObject.toString(Util.JSON_INDENT);
+                message = jsonObject.toString(Parse.JSON_INDENT);
             } else if (msg.startsWith("[")) {
                 JSONArray jsonArray = new JSONArray(msg);
-                message = jsonArray.toString(Util.JSON_INDENT);
+                message = jsonArray.toString(Parse.JSON_INDENT);
             } else {
                 message = msg;
             }
@@ -88,7 +88,7 @@ public class BaseLog {
             message = msg;
         }
 
-        Util.printLine(level, tag, true);
+        Parse.printLine(level, tag, true);
         String LINE_SEPARATOR = System.getProperty("line.separator");
         message = headString + LINE_SEPARATOR + message;
         String[] lines = message.split(LINE_SEPARATOR);
@@ -96,6 +96,6 @@ public class BaseLog {
             printDefault(level, tag, "| " + line);
         }
 
-        Util.printLine(level, tag, false);
+        Parse.printLine(level, tag, false);
     }
 }

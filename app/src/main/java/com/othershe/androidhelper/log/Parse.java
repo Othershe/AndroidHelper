@@ -2,7 +2,7 @@ package com.othershe.androidhelper.log;
 
 import android.text.TextUtils;
 
-public class Util {
+public class Parse {
     public static final String NULL_TIPS = "Log with null object";
     private static final String PARAM = "Param";
     private static final String NULL = "null";

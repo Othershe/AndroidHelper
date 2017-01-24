@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TitleView">
+        <attr name="title_color" format="color" />
+        <attr name="title_content" format="string" />
+
+        <attr name="title_close_text_show" format="boolean" />
+        <attr name="title_back_text_show" format="boolean" />
+        <attr name="title_back_image_show" format="boolean" />
+        <attr name="title_right_text_show" format="boolean" />
+        <attr name="title_right_image_show" format="boolean" />
+
+        <attr name="title_close_text" format="string" />
+        <attr name="title_back_image" format="reference" />
+        <attr name="title_back_text" format="string" />
+        <attr name="title_right_text" format="string" />
+        <attr name="title_right_image" format="reference" />
+    </declare-styleable>
+</resources>

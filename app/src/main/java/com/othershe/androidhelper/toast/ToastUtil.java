@@ -1,10 +1,9 @@
-package com.othershe.androidhelper.utils;
+package com.othershe.androidhelper.toast;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 public class ToastUtil {
     private static Toast toast;

@@ -119,7 +119,7 @@ public class LogUtil {
             return;
         }
 
-        String[] contents = Util.wrapperContent(tagStr, objects);
+        String[] contents = Parse.wrapperContent(tagStr, objects);
         String tag = contents[0];
         String msg = contents[1];
         String headString = contents[2];
