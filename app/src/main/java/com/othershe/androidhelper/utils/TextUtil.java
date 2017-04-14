@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class TextUtil {
 
     /**
-     * 如果EditText输入的内容不是数字或字母则清除相应输入
+     * 如果EditText输入的内容不是 数字 或 字母 则清除相应输入
      *
      * @param context
      * @param editText
