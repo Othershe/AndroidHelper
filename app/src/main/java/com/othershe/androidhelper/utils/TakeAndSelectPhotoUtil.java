@@ -6,6 +6,8 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +24,7 @@ import com.othershe.androidhelper.BuildConfig;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 拍照、相册选择图片返回bitmap的工具类
@@ -30,6 +33,19 @@ public class TakeAndSelectPhotoUtil {
 
     private static File cameraFile = createFile(Environment.getExternalStorageDirectory() + "/edsfile/", "output_image.jpg");
     private static File cacheFile = createFile(Environment.getExternalStorageDirectory() + "/edsfile/", "crop_image.jpg");
+
+    /**
+     * 是否有可拍照的app
+     *
+     * @param context
+     * @return
+     */
+    public static boolean hasCamera(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
 
     /**
      * 启动相机
