@@ -3,6 +3,7 @@ package com.othershe.androidhelper.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.telephony.TelephonyManager;
 
 public class TelephoneUtil {
@@ -22,9 +23,15 @@ public class TelephoneUtil {
      * @return
      */
     public static String getIMEI(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        String imei = tm.getDeviceId();
-        return imei != null ? imei : "";
+        String imei;
+        try {
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            imei = tm.getDeviceId();
+        } catch (Exception e) {
+            imei = getSerial();
+        }
+
+        return imei;
     }
 
     /**
@@ -114,5 +121,22 @@ public class TelephoneUtil {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String phoneNum = tm.getLine1Number();
         return phoneNum != null ? phoneNum : "";
+    }
+
+    private static String getSerial() {
+        return "35" +
+                Build.BOARD.length() % 10 + Build.BRAND.length() % 10 +
+
+                Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10 +
+
+                Build.DISPLAY.length() % 10 + Build.HOST.length() % 10 +
+
+                Build.ID.length() % 10 + Build.MANUFACTURER.length() % 10 +
+
+                Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10 +
+
+                Build.TAGS.length() % 10 + Build.TYPE.length() % 10 +
+
+                Build.USER.length() % 10;
     }
 }
