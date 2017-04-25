@@ -9,17 +9,18 @@ public class DateUtil {
     public static final String TYPE2 = "yyyy年MM月dd日 HH:mm";
     public static final String TYPE3 = "yyyy年MM月dd日 E";
     public static final String TYPE4 = "HH:mm";
+    public static final String TYPE5 = "yyyy-MM-dd";
 
     public static String formatDate(String type) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(type);
+        SimpleDateFormat sdf = new SimpleDateFormat(type);
         Date date = new Date();
-        return simpleDateFormat.format(date);
+        return sdf.format(date);
     }
 
     public static String formatDate(long timeMills, String type) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(type);
+        SimpleDateFormat sdf = new SimpleDateFormat(type);
         Date date = new Date(timeMills);
-        return simpleDateFormat.format(date);
+        return sdf.format(date);
     }
 
     public static String getApm() {
@@ -67,26 +68,70 @@ public class DateUtil {
         return calendar.get(Calendar.SECOND);
     }
 
-    public static String formatBeforeDate(long oldTimeMills) {
+    public static String formatDate(long times) {
+        if (times == 0) {
+            return "";
+        }
+        String result;
 
-        long currentTimeMillis = System.currentTimeMillis();
-        long tm = get24Hour() * 60 * 60 + getMinute() * 60 + getSecond();
-        if (oldTimeMills < currentTimeMillis) {
-            long d = (currentTimeMillis - oldTimeMills) / 1000;
-            if (d <= 60) {
-                return "1分钟前";
-            } else if (d <= 60 * 60) {
-                long m = d / 60;
-                if (m <= 0) {
-                    m = 1;
-                }
-                return m + "分钟前";
-            } else if (d > 60 * 60 && d <= tm) {
-                return formatDate(oldTimeMills, "今天 HH:mm");
-            } else if (d > tm && d < tm + 24 * 60 * 60) {
-                return formatDate(oldTimeMills, "昨天 HH:mm");
+        long curTimes = System.currentTimeMillis();
+
+        long deltaTimes = curTimes - times;
+
+        if (formatDate(times, TYPE1).equals(formatDate(TYPE5))) {//同一天
+            if (deltaTimes < 60000) {//一分钟内
+                result = "刚刚";
+            } else if (deltaTimes < 3600000) {//一小时内
+                result = deltaTimes / 60000 + "分钟前";
+            } else {
+                result = deltaTimes / 3600000 + "小时前";
+            }
+        } else {
+            int day;
+            if (deltaTimes / 3600000 < 24) {
+                day = 1;
+            } else {
+                day = (int) (deltaTimes / (24 * 3600000));
+            }
+
+            if (day == 1) {
+                result = "昨天";
+            } else if (day < 31) {
+                result = day + "天前";
+            } else {
+                result = formatDate(times, TYPE1);
             }
         }
-        return formatDate(TYPE1);
+
+        return result;
+    }
+
+    private static String getWeekStr() {
+        int week = getWeek();
+        String str = "";
+        switch (week) {
+            case 1:
+                str = "一";
+                break;
+            case 2:
+                str = "二";
+                break;
+            case 3:
+                str = "三";
+                break;
+            case 4:
+                str = "四";
+                break;
+            case 5:
+                str = "五";
+                break;
+            case 6:
+                str = "六";
+                break;
+            case 7:
+                str = "天";
+                break;
+        }
+        return str;
     }
 }
